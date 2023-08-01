@@ -31,6 +31,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.2",
     "react-markdown": "^8.0.7",
+    "replicate": "^0.14.1",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.6",
     "typescript": "5.1.6",
