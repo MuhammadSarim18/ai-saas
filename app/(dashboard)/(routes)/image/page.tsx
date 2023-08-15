@@ -27,8 +27,10 @@ import { UserAvavtar } from "@/components/user-avatar";
 import { BotAvatar } from "@/components/bot-avatar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardFooter } from "@/components/ui/card";
+import { useProModel } from "@/hooks/use-pro-modal";
 
 const ImagePage = () => {
+    const proModal = useProModel();
     const router = useRouter();
     const [images, setImages] = useState<string[]>([]);
 
@@ -53,7 +55,9 @@ const ImagePage = () => {
             setImages(urls);
             form.reset();
         } catch (error: any) {
-            console.log(error);
+            if (error?.response?.status === 403) {
+                proModal.onOpen();
+            }
         } finally {
             router.refresh()
         }
