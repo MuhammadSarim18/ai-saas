@@ -7,6 +7,7 @@ import { ArrowRight, Check, Code, ImageIcon, MessageSquare, Music, VideoIcon, Za
 import { Card } from "./ui/card";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
+import { useState } from "react";
 
 const tools = [
     {
@@ -47,8 +48,8 @@ const tools = [
 ]
 
 export const ProModal = () => {
-
     const proModal = useProModel();
+    const [loading, setLoading] = useState(false);
 
     return (
         <Dialog open={proModal.isOpen} onOpenChange={proModal.onClose}>
@@ -69,7 +70,7 @@ export const ProModal = () => {
                                 className="p-3 border-black/5 flex items-center justify-between"
                             >
                                 <div className="flex items-center gap-x-4">
-                                    <div className={cn("p-2 w-fit rounded-md",tool.bgColor)}>
+                                    <div className={cn("p-2 w-fit rounded-md", tool.bgColor)}>
                                         <tool.icon className={cn("w-6 h-6")} />
                                     </div>
                                     <div className="font-semibold text-sm">
@@ -83,9 +84,10 @@ export const ProModal = () => {
                 </DialogHeader>
                 <DialogFooter>
                     <Button
-                    size="lg"
-                    variant="premium"
-                    className="w-full">
+                        disabled={loading}
+                        size="lg"
+                        variant="premium"
+                        className="w-full">
                         Upgrade
                         <Zap className="w-4 h-4 ml-2 fill-white" />
                     </Button>

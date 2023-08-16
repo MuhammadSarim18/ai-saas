@@ -28,6 +28,7 @@ import { BotAvatar } from "@/components/bot-avatar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardFooter } from "@/components/ui/card";
 import { useProModel } from "@/hooks/use-pro-modal";
+import { toast } from "react-hot-toast";
 
 const ImagePage = () => {
     const proModal = useProModel();
@@ -47,6 +48,7 @@ const ImagePage = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
+            throw new Error("Something")
             setImages([]);
             const responce = await axios.post('/api/image', values);
 
@@ -57,6 +59,9 @@ const ImagePage = () => {
         } catch (error: any) {
             if (error?.response?.status === 403) {
                 proModal.onOpen();
+            }
+            else{
+                toast.error("Something went wrong");
             }
         } finally {
             router.refresh()

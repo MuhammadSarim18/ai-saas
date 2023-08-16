@@ -22,6 +22,7 @@ import { formSchema } from "./constants";
 import { useState } from "react";
 import { Loader } from "@/components/loader";
 import { useProModel } from "@/hooks/use-pro-modal";
+import { toast } from "react-hot-toast";
 
 const VideoPage = () => {
     const proModal = useProModel();
@@ -39,6 +40,7 @@ const VideoPage = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
+            throw new Error("Something")
             setVideo(undefined)
 
             const responce = await axios.post('/api/video', values);
@@ -48,6 +50,8 @@ const VideoPage = () => {
         } catch (error: any) {
             if (error?.response?.status === 403) {
                 proModal.onOpen();
+            }else{
+                toast.error("Something went wrong");
             }
         } finally {
             router.refresh()

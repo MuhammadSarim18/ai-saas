@@ -23,6 +23,7 @@ import { useState } from "react";
 import { ChatCompletionRequestMessage } from "openai";
 import { Loader } from "@/components/loader";
 import { useProModel } from "@/hooks/use-pro-modal";
+import { toast } from "react-hot-toast";
 
 const MusicPage = () => {
     const proModal = useProModel();
@@ -40,6 +41,7 @@ const MusicPage = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
+            throw new Error("Something")
             setMusic(undefined)
 
             const responce = await axios.post('/api/music', values);
@@ -49,6 +51,8 @@ const MusicPage = () => {
         } catch (error: any) {
             if (error?.response?.status === 403) {
                 proModal.onOpen();
+            }else{
+                toast.error("Something went wrong");
             }
         } finally {
             router.refresh()
